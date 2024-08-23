@@ -1,4 +1,4 @@
-package com.canonicallog.canonicallogging;
+package com.canonicallog.logging.annotation;
 
 import java.lang.annotation.*;
 

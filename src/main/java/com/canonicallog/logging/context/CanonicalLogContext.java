@@ -1,4 +1,7 @@
-package com.canonicallog.canonicallogging;
+package com.canonicallog.logging.context;
+
+import com.canonicallog.logging.log.CanonicalLogLine;
+import com.canonicallog.logging.log.CanonicalLogger;
 
 public class CanonicalLogContext {
     public static void put(String key, Object... values) {

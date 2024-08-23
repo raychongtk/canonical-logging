@@ -1,4 +1,4 @@
-package com.canonicallog.canonicallogging;
+package com.canonicallog.logging.log;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,7 @@ public class CanonicalLogger {
     public static final ThreadLocal<CanonicalLogLine> CANONICAL_LOG = new ThreadLocal<>();
     private final Logger logger = LoggerFactory.getLogger(CanonicalLogger.class);
 
-    protected CanonicalLogLine begin() {
+    public CanonicalLogLine begin() {
         String id = UUID.randomUUID().toString();
         String startTime = LocalDateTime.now().toString();
         CanonicalLogLine log = new CanonicalLogLine(id, startTime);
@@ -20,11 +20,11 @@ public class CanonicalLogger {
         return log;
     }
 
-    protected CanonicalLogLine get() {
+    public CanonicalLogLine get() {
         return CANONICAL_LOG.get();
     }
 
-    protected void end() {
+    public void end() {
         try {
             CanonicalLogLine log = CANONICAL_LOG.get();
             log.put("end_time", LocalDateTime.now().toString());
