@@ -1,1 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.canonicallog.logging.config.CanonicalLogConfig
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.canonicallog.logging.autoconfigure.CanonicalLogConfig

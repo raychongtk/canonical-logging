@@ -1,4 +1,4 @@
-package com.canonicallog.logging.log;
+package com.canonicallog.logging.autoconfigure;
 
 import java.util.ArrayList;
 import java.util.HashMap;

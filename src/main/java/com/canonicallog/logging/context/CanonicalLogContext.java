@@ -1,7 +1,7 @@
 package com.canonicallog.logging.context;
 
-import com.canonicallog.logging.log.CanonicalLogLine;
-import com.canonicallog.logging.log.CanonicalLogger;
+import com.canonicallog.logging.autoconfigure.CanonicalLogLine;
+import com.canonicallog.logging.autoconfigure.CanonicalLogger;
 
 public class CanonicalLogContext {
     public static void put(String key, Object... values) {

@@ -1,4 +1,4 @@
-package com.canonicallog.logging.log;
+package com.canonicallog.logging.autoconfigure;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
