@@ -23,3 +23,44 @@ traditional logging to provide more details. Therefore, we use a mixed approach 
 information and traditional logs provide details.
 
 How to link the canonical log with traditional logs? Use distributed tracing!
+
+# Demonstration
+
+```java
+
+@RestController
+public class DemoController {
+   @Autowired
+   DemoService demoService;
+
+   @CanonicalLog
+   @GetMapping("/api/v1/demo")
+   public String demo() {
+      CanonicalLogContext.put("test", "test string");
+      CanonicalLogContext.put("test_string", "test string");
+      CanonicalLogContext.put("id", UUID.randomUUID().toString());
+      demoService.demo();
+      return "canonical logging";
+   }
+}
+```
+
+```java
+
+@Service
+public class DemoService {
+   public void demo() {
+      CanonicalLogContext.put("demo_key", "demo_value");
+      CanonicalLogContext.put("demo_key2", "demo_value2");
+   }
+}
+```
+
+1. Annotated the method that you want to have Canonical Logging with @CanonicalLog
+2. Put key information into log context by invoking `CanonicalLogContext.put(key, value)`
+
+Eventually, you will see something like this:
+
+```
+{start_time=2024-08-25T02:33:19.060362, controller=com.actionlog.log.controller.DemoController, test=test string, demo_key=demo_value, test_string=test string, elapsed_time=1005163959, end_time=2024-08-25T02:33:20.066479, id=07252b0f-13b5-4d76-9e25-50797f919580, demo_key2=demo_value2}, Canonical Log Line Done
+```
