@@ -18,7 +18,8 @@ public class CanonicalLogAspect {
     public Object log(ProceedingJoinPoint joinPoint, CanonicalLog canonicalLog) throws Throwable {
         try {
             CanonicalLogLine log = canonicalLogger.begin();
-            log.put("controller", joinPoint.getSignature().getDeclaringType().getName());
+            log.put("class_name", joinPoint.getSignature().getDeclaringType().getName());
+            log.put("method_name", joinPoint.getSignature().getName());
 
             long startTime = System.currentTimeMillis();
             Object result = joinPoint.proceed();
