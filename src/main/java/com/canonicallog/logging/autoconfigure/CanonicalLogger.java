@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Component
 public class CanonicalLogger {
@@ -13,9 +12,7 @@ public class CanonicalLogger {
     private final Logger logger = LoggerFactory.getLogger(CanonicalLogger.class);
 
     public CanonicalLogLine begin() {
-        String id = UUID.randomUUID().toString();
-        String startTime = LocalDateTime.now().toString();
-        CanonicalLogLine log = new CanonicalLogLine(id, startTime);
+        CanonicalLogLine log = new CanonicalLogLine();
         CANONICAL_LOG.set(log);
         return log;
     }
@@ -28,7 +25,8 @@ public class CanonicalLogger {
         try {
             CanonicalLogLine log = CANONICAL_LOG.get();
             log.put("end_time", LocalDateTime.now().toString());
-            logger.info("{}, Canonical Log Line Done", log);
+            log.put("log_message", "Canonical Log Line Done");
+            logger.info("{}", log);
         } finally {
             CANONICAL_LOG.remove();
         }

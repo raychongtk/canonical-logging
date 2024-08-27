@@ -62,5 +62,5 @@ public class DemoService {
 Eventually, you will see something like this:
 
 ```
-{start_time=2024-08-25T02:33:19.060362, controller=com.actionlog.log.controller.DemoController, test=test string, demo_key=demo_value, test_string=test string, elapsed_time=1005163959, end_time=2024-08-25T02:33:20.066479, id=07252b0f-13b5-4d76-9e25-50797f919580, demo_key2=demo_value2}, Canonical Log Line Done
+{start_time=2024-08-25T02:33:19.060362, controller=com.actionlog.log.controller.DemoController, test=test string, demo_key=demo_value, test_string=test string, elapsed_time=1005163959, end_time=2024-08-25T02:33:20.066479, id=07252b0f-13b5-4d76-9e25-50797f919580, demo_key2=demo_value2, log_message=Canonical Log Line Done}
 ```

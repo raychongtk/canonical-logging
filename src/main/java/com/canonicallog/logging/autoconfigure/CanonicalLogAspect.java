@@ -1,12 +1,12 @@
 package com.canonicallog.logging.autoconfigure;
 
 import com.canonicallog.logging.annotation.CanonicalLog;
+import com.canonicallog.logging.util.Strings;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StopWatch;
 
 @Aspect
 @Component
@@ -20,12 +20,11 @@ public class CanonicalLogAspect {
             CanonicalLogLine log = canonicalLogger.begin();
             log.put("controller", joinPoint.getSignature().getDeclaringType().getName());
 
-            StopWatch stopWatch = new StopWatch();
-            stopWatch.start();
+            long startTime = System.currentTimeMillis();
             Object result = joinPoint.proceed();
-            stopWatch.stop();
+            long endTime = System.currentTimeMillis();
 
-            log.put("elapsed_time", String.valueOf(stopWatch.getTotalTimeNanos()));
+            log.put("elapsed_time", Strings.format("{} ms", endTime - startTime));
             return result;
         } finally {
             canonicalLogger.end();

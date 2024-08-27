@@ -1,17 +1,19 @@
 package com.canonicallog.logging.autoconfigure;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class CanonicalLogLine {
     private final Map<String, List<String>> logContext;
 
-    public CanonicalLogLine(String id, String startTime) {
+    public CanonicalLogLine() {
         this.logContext = new HashMap<>();
-        put("id", id);
-        put("start_time", startTime);
+        put("id", UUID.randomUUID().toString());
+        put("start_time", LocalDateTime.now().toString());
     }
 
     public void put(String key, Object... values) {
