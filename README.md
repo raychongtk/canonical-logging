@@ -65,7 +65,7 @@ public class DemoService {
 }
 ```
 
-1. Annotated the method that you want to have Canonical Logging with @CanonicalLog
+1. Annotated the method that you want to have Canonical Logging with `@CanonicalLog`
 2. Put key information into log context by invoking `CanonicalLogContext.put(key, value)`
 3. Put stat information into log context by invoking `CanonicalLogContext.stat(key, value)`
    or `CanonicalLogContext.increase(key)`
