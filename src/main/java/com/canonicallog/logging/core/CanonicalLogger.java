@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class CanonicalLogger implements Logger {
@@ -21,6 +22,7 @@ public class CanonicalLogger implements Logger {
             return "canonical log not found";
         }
         Map<String, String> logs = canonicalLogLine.formatLog();
+        logs.put("end_time", LocalDateTime.now().toString());
         logs.put("log_message", message);
         return logs.toString();
     }
