@@ -71,3 +71,23 @@ Eventually, you will see something like this:
 ```
 {test=test string, end_time=2024-08-28T13:12:09.510456, read_count_v2=10.0, start_time=2024-08-28T13:12:09.509363, method_name=demo, demo_key=demo_value, test_string=test string, elapsed_time=1 ms, log_message=Canonical Log Line Done, id=[b20e142b-87de-41e9-9f4f-c7e2eb12608a, 69798f06-b6a8-4afb-8541-7cc114213ca0], class_name=com.actionlog.log.controller.DemoController, demo_key2=demo_value2, read_count=10.0}
 ```
+
+This library also provide a Canonical Logger for you to print logs with the key value pairs that exists in the canonical
+log context
+
+```java
+private static final Logger logger = CanonicalLoggerFactory.getLogger("canonical-log");
+```
+
+Declare a logger in this way will print log message with existing values inside the canonical log context
+
+This is useful when you need the intermediate values attached in a log
+
+If you declare a logger with normal logger factory, you will only get the log message without any canonical log
+information attached
+
+```java
+private static final Logger logger = LoggerFactory.getLogger("canonical-log");
+```
+
+Either way is fine. Choose the best one for your use case.
