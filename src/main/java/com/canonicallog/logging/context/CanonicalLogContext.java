@@ -25,4 +25,11 @@ public class CanonicalLogContext {
             log.stat(key, value);
         }
     }
+
+    public static void increase(String key) {
+        CanonicalLogLine log = CanonicalLogger.CANONICAL_LOG.get();
+        if (log != null) {
+            log.stat(key, 1);
+        }
+    }
 }
