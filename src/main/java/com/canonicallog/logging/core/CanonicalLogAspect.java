@@ -17,15 +17,15 @@ public class CanonicalLogAspect {
     @Around("@annotation(canonicalLog)")
     public Object log(ProceedingJoinPoint joinPoint, CanonicalLog canonicalLog) throws Throwable {
         try {
-            CanonicalLogLine log = canonicalLogTracer.start();
-            log.put("class_name", joinPoint.getSignature().getDeclaringType().getName());
-            log.put("method_name", joinPoint.getSignature().getName());
+            CanonicalLogTrace logTrace = canonicalLogTracer.start();
+            logTrace.put("class_name", joinPoint.getSignature().getDeclaringType().getName());
+            logTrace.put("method_name", joinPoint.getSignature().getName());
 
             long startTime = System.currentTimeMillis();
             Object result = joinPoint.proceed();
             long endTime = System.currentTimeMillis();
 
-            log.put("elapsed_time", Strings.format("{} ms", endTime - startTime));
+            logTrace.put("elapsed_time", Strings.format("{} ms", endTime - startTime));
             return result;
         } finally {
             canonicalLogTracer.finish();

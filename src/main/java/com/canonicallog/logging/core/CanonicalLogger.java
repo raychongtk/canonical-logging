@@ -17,11 +17,11 @@ public class CanonicalLogger implements Logger {
     }
 
     private String logMessage(String message) {
-        CanonicalLogLine canonicalLogLine = CanonicalLogTracer.CANONICAL_LOG.get();
-        if (canonicalLogLine == null) {
+        CanonicalLogTrace canonicalLogTrace = CanonicalLogTracer.CANONICAL_LOG.get();
+        if (canonicalLogTrace == null) {
             return "canonical log not found";
         }
-        Map<String, String> logs = canonicalLogLine.formatLog();
+        Map<String, String> logs = canonicalLogTrace.formatLog();
         logs.put("end_time", LocalDateTime.now().toString());
         logs.put("log_message", message);
         return logs.toString();

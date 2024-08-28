@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class CanonicalLogLine {
+public class CanonicalLogTrace {
     private final Map<String, List<String>> logContext;
     private final Map<String, Double> stats;
 
-    public CanonicalLogLine() {
+    public CanonicalLogTrace() {
         this.logContext = new HashMap<>();
         this.stats = new HashMap<>();
         put("id", UUID.randomUUID().toString());
