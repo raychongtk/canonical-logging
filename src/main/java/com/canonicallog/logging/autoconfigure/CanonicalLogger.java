@@ -26,7 +26,7 @@ public class CanonicalLogger {
             CanonicalLogLine log = CANONICAL_LOG.get();
             log.put("end_time", LocalDateTime.now().toString());
             log.put("log_message", "Canonical Log Line Done");
-            logger.info("{}", log);
+            logger.info("{}", log.formatLog());
         } finally {
             CANONICAL_LOG.remove();
         }

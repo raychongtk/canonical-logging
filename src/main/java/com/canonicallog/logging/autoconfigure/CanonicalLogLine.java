@@ -9,9 +9,11 @@ import java.util.UUID;
 
 public class CanonicalLogLine {
     private final Map<String, List<String>> logContext;
+    private final Map<String, Double> stats;
 
     public CanonicalLogLine() {
         this.logContext = new HashMap<>();
+        this.stats = new HashMap<>();
         put("id", UUID.randomUUID().toString());
         put("start_time", LocalDateTime.now().toString());
     }
@@ -24,15 +26,17 @@ public class CanonicalLogLine {
         }
     }
 
-    public String get(String key) {
+    public List<String> get(String key) {
         List<String> values = logContext.get(key);
         if (values == null || values.isEmpty()) return null;
-        if (values.size() > 1) return values.toString();
-        return values.getFirst();
+        return values;
     }
 
-    @Override
-    public String toString() {
+    public void stat(String key, double value) {
+        stats.compute(key, (k, v) -> v == null ? value : v + value);
+    }
+
+    public String formatLog() {
         Map<String, String> formattedLogs = new HashMap<>();
         for (Map.Entry<String, List<String>> entry : logContext.entrySet()) {
             if (entry.getValue().size() > 1) {
@@ -40,6 +44,10 @@ public class CanonicalLogLine {
             } else {
                 formattedLogs.put(entry.getKey(), entry.getValue().getFirst());
             }
+        }
+
+        for (Map.Entry<String, Double> entry : stats.entrySet()) {
+            formattedLogs.put(entry.getKey(), entry.getValue().toString());
         }
         return formattedLogs.toString();
     }
