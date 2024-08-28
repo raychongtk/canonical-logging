@@ -96,7 +96,7 @@ The `logger.info("intermediate log")` will print an intermediate log with canoni
 You will see the `log_message` is `intermediate log`
 
 That said, the key-value pairs written into the canonical log context will all attach to the log when the `logger.info`
-is being called
+is called
 
 If you declare a logger with normal logger factory, you will only get the log message without any canonical log
 information attached
