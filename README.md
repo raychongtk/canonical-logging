@@ -52,6 +52,11 @@ public class DemoService {
    public void demo() {
       CanonicalLogContext.put("demo_key", "demo_value");
       CanonicalLogContext.put("demo_key2", "demo_value2");
+
+      for (int i = 0; i < 10; i++) {
+         CanonicalLogContext.stat("read_count", 1);
+         CanonicalLogContext.increase("read_count_v2");
+      }
    }
 }
 ```
@@ -62,5 +67,5 @@ public class DemoService {
 Eventually, you will see something like this:
 
 ```
-{start_time=2024-08-25T02:33:19.060362, controller=com.actionlog.log.controller.DemoController, test=test string, demo_key=demo_value, test_string=test string, elapsed_time=1005163959, end_time=2024-08-25T02:33:20.066479, id=07252b0f-13b5-4d76-9e25-50797f919580, demo_key2=demo_value2, log_message=Canonical Log Line Done}
+{test=test string, end_time=2024-08-28T13:12:09.510456, read_count_v2=10.0, start_time=2024-08-28T13:12:09.509363, method_name=demo, demo_key=demo_value, test_string=test string, elapsed_time=1 ms, log_message=Canonical Log Line Done, id=[b20e142b-87de-41e9-9f4f-c7e2eb12608a, 69798f06-b6a8-4afb-8541-7cc114213ca0], class_name=com.actionlog.log.controller.DemoController, demo_key2=demo_value2, read_count=10.0}
 ```
