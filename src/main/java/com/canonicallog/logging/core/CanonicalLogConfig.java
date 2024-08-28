@@ -1,4 +1,4 @@
-package com.canonicallog.logging.autoconfigure;
+package com.canonicallog.logging.core;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.canonicallog.logging.autoconfigure;
+package com.canonicallog.logging.core;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class CanonicalLogLine {
         stats.compute(key, (k, v) -> v == null ? value : v + value);
     }
 
-    public String formatLog() {
+    public Map<String, String> formatLog() {
         Map<String, String> formattedLogs = new HashMap<>();
         for (Map.Entry<String, List<String>> entry : logContext.entrySet()) {
             if (entry.getValue().size() > 1) {
@@ -49,6 +49,6 @@ public class CanonicalLogLine {
         for (Map.Entry<String, Double> entry : stats.entrySet()) {
             formattedLogs.put(entry.getKey(), entry.getValue().toString());
         }
-        return formattedLogs.toString();
+        return formattedLogs;
     }
 }

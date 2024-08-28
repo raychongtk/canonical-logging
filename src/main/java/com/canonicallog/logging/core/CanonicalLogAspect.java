@@ -1,4 +1,4 @@
-package com.canonicallog.logging.autoconfigure;
+package com.canonicallog.logging.core;
 
 import com.canonicallog.logging.annotation.CanonicalLog;
 import com.canonicallog.logging.util.Strings;
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class CanonicalLogAspect {
     @Autowired
-    private CanonicalLogger canonicalLogger;
+    private CanonicalLogTracer canonicalLogTracer;
 
     @Around("@annotation(canonicalLog)")
     public Object log(ProceedingJoinPoint joinPoint, CanonicalLog canonicalLog) throws Throwable {
         try {
-            CanonicalLogLine log = canonicalLogger.begin();
+            CanonicalLogLine log = canonicalLogTracer.start();
             log.put("class_name", joinPoint.getSignature().getDeclaringType().getName());
             log.put("method_name", joinPoint.getSignature().getName());
 
@@ -28,7 +28,7 @@ public class CanonicalLogAspect {
             log.put("elapsed_time", Strings.format("{} ms", endTime - startTime));
             return result;
         } finally {
-            canonicalLogger.end();
+            canonicalLogTracer.finish();
         }
     }
 }
