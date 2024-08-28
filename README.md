@@ -38,7 +38,7 @@ public class DemoController {
    public String demo() {
       CanonicalLogContext.put("test", "test string");
       CanonicalLogContext.put("test_string", "test string");
-      CanonicalLogContext.put("id", UUID.randomUUID().toString());
+
       demoService.demo();
       return "canonical logging";
    }
@@ -49,9 +49,13 @@ public class DemoController {
 
 @Service
 public class DemoService {
+   private static final Logger logger = CanonicalLoggerFactory.getLogger("canonical-log");
+
    public void demo() {
       CanonicalLogContext.put("demo_key", "demo_value");
       CanonicalLogContext.put("demo_key2", "demo_value2");
+
+      logger.info("intermediate log");
 
       for (int i = 0; i < 10; i++) {
          CanonicalLogContext.stat("read_count", 1);
@@ -83,6 +87,17 @@ Declare a logger in this way will print log message with existing values inside 
 
 This is useful when you need the intermediate values attached in a log
 
+The `logger.info("intermediate log")` will print an intermediate log with canonical log context, the result will be:
+
+```
+{start_time=2024-08-29T01:29:01.543875, test=test string, method_name=demo, demo_key=demo_value, test_string=test string, log_message=intermediate log, id=f1ddcea7-e268-4040-8742-7b39cdd4839e, class_name=com.actionlog.log.controller.DemoController, demo_key2=demo_value2}
+```
+
+You will see the `log_message` is `intermediate log`
+
+That said, the key-value pairs written into the canonical log context will all attach to the log when the `logger.info`
+is being called
+
 If you declare a logger with normal logger factory, you will only get the log message without any canonical log
 information attached
 
@@ -90,4 +105,12 @@ information attached
 private static final Logger logger = LoggerFactory.getLogger("canonical-log");
 ```
 
-Either way is fine. Choose the best one for your use case.
+The result for this logger will be:
+
+```
+intermediate log
+```
+
+It will not have any canonical log information attached
+
+Either way is fine. Choose the best one for your use case
