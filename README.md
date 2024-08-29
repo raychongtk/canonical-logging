@@ -1,5 +1,6 @@
-# Canonical Logging
+# Canonical Logging Narrative
 
+## Background
 Canonical Logging is a way to design the logging approach in your system. In traditional logging approach, you will need
 to call `log.info(...)` multiple times in order to print logs in different locations. This increases number of logs and
 makes logs difficult to read and understand.
@@ -7,27 +8,28 @@ With canonical logging, every API request will have a single log with key-value 
 the request lifecycle, meaning that, you can put different data into a log context, the data can be the key information
 that you need for the request like user id, error message, invoke dependency services success or not, and etc.
 
-# Benefit
+## Benefit
 
 1. Reduce number of logs: you don't need to print multiple logs in multiple locations in many use cases
-2. Increase observability: now, you only need to look at the canonical log whenever you need to investigate something
+2. Better observability: now, you only need to look at the canonical log whenever you need to investigate something
    because the log already provide key information for you
+3. Easy to understand: a canonical log contains all key telemetry including error, request information, invocation
+   metadata. etc.
 
-# Architecture
+## Architecture
 
 ![](./docs/canonical-logging.jpg)
 
 Now, you have canonical log. Does it mean you don't need traditional logging? No. You still need it. Canonical log is
 used to provide key information in high-level, however, if you want to dive into something, you might still need
 traditional logging to provide more details. Therefore, we use a mixed approach for logging. Canonical log provide key
-information and traditional logs provide details.
+information and traditional logs provide more information to complement the canonical log.
 
 How to link the canonical log with traditional logs? Use distributed tracing!
 
-# Demonstration
+## Demonstration
 
 ```java
-
 @RestController
 public class DemoController {
    @Autowired
@@ -46,7 +48,6 @@ public class DemoController {
 ```
 
 ```java
-
 @Service
 public class DemoService {
    private static final Logger logger = CanonicalLoggerFactory.getLogger("canonical-log");
@@ -65,17 +66,19 @@ public class DemoService {
 }
 ```
 
+### How to apply canonical log?
 1. Annotated the method that you want to have Canonical Logging with `@CanonicalLog`
 2. Put key information into log context by invoking `CanonicalLogContext.put(key, value)`
 3. Put stat information into log context by invoking `CanonicalLogContext.stat(key, value)`
    or `CanonicalLogContext.increase(key)`
 
-Eventually, you will see something like this:
+As a result, you will see something like this:
 
 ```
 {test=test string, end_time=2024-08-28T13:12:09.510456, read_count_v2=10.0, start_time=2024-08-28T13:12:09.509363, method_name=demo, demo_key=demo_value, test_string=test string, elapsed_time=1 ms, log_message=Canonical Log Line Done, id=[b20e142b-87de-41e9-9f4f-c7e2eb12608a, 69798f06-b6a8-4afb-8541-7cc114213ca0], class_name=com.actionlog.log.controller.DemoController, demo_key2=demo_value2, read_count=10.0}
 ```
 
+### Canonical Logger
 This library also provide a Canonical Logger for you to print logs with the key value pairs that exists in the canonical
 log context
 
@@ -95,22 +98,32 @@ The `logger.info("intermediate log")` will print an intermediate log with canoni
 
 You will see the `log_message` is `intermediate log`
 
-That said, the key-value pairs written into the canonical log context will all attach to the log when the `logger.info`
+That said, the key-value pairs written into the canonical log context will all attach to the log when
+the `logger.info(...)`
 is called
 
 If you declare a logger with normal logger factory, you will only get the log message without any canonical log
 information attached
 
+### Normal Logger
 ```java
 private static final Logger logger = LoggerFactory.getLogger("canonical-log");
 ```
 
-The result for this logger will be:
+By using this logger, when you call `logger.info(...)`, it will print
 
 ```
 intermediate log
 ```
 
-It will not have any canonical log information attached
+That said, it will not attach any canonical log information.
 
-Either way is fine. Choose the best one for your use case
+---
+Either way is fine. Choose the best one for your use case.
+
+If you are interested in canonical log, you can check out the following articles:
+
+1. https://stripe.com/blog/canonical-log-lines
+2. https://brandur.org/nanoglyphs/025-logs
+3. https://baselime.io/blog/canonical-log-lines
+4. https://brandur.org/canonical-log-lines
