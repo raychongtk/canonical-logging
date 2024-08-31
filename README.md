@@ -80,7 +80,10 @@ As a result, you will see something like this:
 
 ### Canonical Logger
 This library also provide a Canonical Logger for you to print logs with the key value pairs that exists in the canonical
-log context
+log context.
+
+Canonical Logger built on top of Logback as the logging library but reformat the log message in Canonical Log format
+with key information attached.
 
 ```java
 private static final Logger logger = CanonicalLoggerFactory.getLogger("canonical-log");
