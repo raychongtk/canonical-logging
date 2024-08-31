@@ -28,7 +28,7 @@ public class CanonicalLogTrace {
 
     public List<String> get(String key) {
         List<String> values = logContext.get(key);
-        if (values == null || values.isEmpty()) return null;
+        if (values == null || values.isEmpty()) return new ArrayList<>();
         return values;
     }
 
@@ -50,5 +50,12 @@ public class CanonicalLogTrace {
             formattedLogs.put(entry.getKey(), entry.getValue().toString());
         }
         return formattedLogs;
+    }
+
+    protected String logIntermediateMessage(String message) {
+        Map<String, String> logs = formatLog();
+        logs.put("end_time", LocalDateTime.now().toString());
+        logs.put("log_message", message);
+        return logs.toString();
     }
 }

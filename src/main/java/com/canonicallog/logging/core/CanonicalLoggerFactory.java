@@ -13,6 +13,6 @@ public class CanonicalLoggerFactory {
     }
 
     public static Logger getLogger(String name) {
-        return loggers.computeIfAbsent(name, (k) -> new CanonicalLogger(name));
+        return loggers.computeIfAbsent(name, (key) -> new CanonicalLogger(name));
     }
 }

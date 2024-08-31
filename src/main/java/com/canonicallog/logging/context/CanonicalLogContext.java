@@ -2,6 +2,7 @@ package com.canonicallog.logging.context;
 
 import com.canonicallog.logging.core.CanonicalLogTrace;
 import com.canonicallog.logging.core.CanonicalLogTracer;
+import jakarta.annotation.Nullable;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class CanonicalLogContext {
         }
     }
 
+    @Nullable
     public static List<String> get(String key) {
         CanonicalLogTrace log = CanonicalLogTracer.CANONICAL_LOG.get();
         if (log == null) return null;
