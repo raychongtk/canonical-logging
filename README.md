@@ -81,20 +81,20 @@ As a result, you will see something like this:
 ```json
 {
    "test": "test string",
-   "end_time": "2024-09-08T00:49:03.546199",
-   "start_time": "2024-09-08T00:49:03.531121",
+   "end_time": "2024-09-08T01:22:46.432957",
+   "start_time": "2024-09-08T01:22:46.413748",
    "method_name": "demo",
    "demo_key": "demo_value",
    "test_string": "test string",
-   "elapsed_time": "15 ms",
+   "elapsed_time": 18,
    "http": {
       "total_read_write": 4,
       "read_count": 2,
       "write_count": 2
    },
    "log_message": "Canonical Log Line Done",
-   "id": "33cd6566-791c-411e-9c1e-ffb399c38397",
-   "class_name": "com.canonical.log.controller.DemoController",
+   "id": "95be53fa-a4c1-4ead-835f-2f08d0a42c33",
+   "class_name": "com.actionlog.log.controller.DemoController",
    "demo_key2": "demo_value2",
    "read_count": 10.0
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class CanonicalLogTrace {
-    private final Map<String, List<String>> logContext;
+    private final Map<String, List<Object>> logContext;
     private final Map<String, Double> stats;
     private final Map<String, PerformanceMetric> performanceTracking;
     private final PerformanceWarningConfig performanceWarningConfig;
@@ -24,14 +24,14 @@ public class CanonicalLogTrace {
 
     public void put(String key, Object... values) {
         for (Object value : values) {
-            List<String> contextValues = logContext.getOrDefault(key, new ArrayList<>());
-            contextValues.add(String.valueOf(value));
+            List<Object> contextValues = logContext.getOrDefault(key, new ArrayList<>());
+            contextValues.add(value);
             logContext.put(key, contextValues);
         }
     }
 
-    public List<String> get(String key) {
-        List<String> values = logContext.get(key);
+    public List<Object> get(String key) {
+        List<Object> values = logContext.get(key);
         if (values == null || values.isEmpty()) return new ArrayList<>();
         return values;
     }
@@ -54,7 +54,7 @@ public class CanonicalLogTrace {
 
     public Map<String, Object> aggregateKeyInformation() {
         Map<String, Object> formattedLogs = new HashMap<>();
-        for (Map.Entry<String, List<String>> entry : logContext.entrySet()) {
+        for (Map.Entry<String, List<Object>> entry : logContext.entrySet()) {
             if (entry.getValue().size() > 1) {
                 formattedLogs.put(entry.getKey(), entry.getValue().toString());
             } else {
