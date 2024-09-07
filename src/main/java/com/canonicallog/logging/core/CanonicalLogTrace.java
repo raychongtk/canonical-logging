@@ -1,7 +1,5 @@
 package com.canonicallog.logging.core;
 
-import com.canonicallog.logging.core.json.JsonMapper;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +52,7 @@ public class CanonicalLogTrace {
         performanceTracking.put(operation, performance);
     }
 
-    public Map<String, Object> formatLog() {
+    public Map<String, Object> aggregateKeyInformation() {
         Map<String, Object> formattedLogs = new HashMap<>();
         for (Map.Entry<String, List<String>> entry : logContext.entrySet()) {
             if (entry.getValue().size() > 1) {
@@ -67,12 +65,5 @@ public class CanonicalLogTrace {
         formattedLogs.putAll(stats);
         formattedLogs.putAll(performanceTracking);
         return formattedLogs;
-    }
-
-    protected String logIntermediateMessage(String message) {
-        Map<String, Object> logs = formatLog();
-        logs.put("end_time", LocalDateTime.now().toString());
-        logs.put("log_message", message);
-        return JsonMapper.toJson(logs);
     }
 }

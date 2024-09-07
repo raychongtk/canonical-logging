@@ -34,7 +34,7 @@ public class CanonicalLogTracer {
             CanonicalLogTrace logTrace = CANONICAL_LOG.get();
             logTrace.put("end_time", LocalDateTime.now().toString());
             logTrace.put("log_message", "Canonical Log Line Done");
-            String logMessage = JsonMapper.toJson(logTrace.formatLog());
+            String logMessage = JsonMapper.toJson(logTrace.aggregateKeyInformation());
             LOGGER.info(logMessage);
         } finally {
             CANONICAL_LOG.remove();

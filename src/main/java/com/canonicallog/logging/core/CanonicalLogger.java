@@ -1,9 +1,13 @@
 package com.canonicallog.logging.core;
 
+import com.canonicallog.logging.core.json.JsonMapper;
 import com.canonicallog.logging.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
+
+import java.time.LocalDateTime;
+import java.util.Map;
 
 public class CanonicalLogger implements Logger {
     private static final Logger LOGGER = LoggerFactory.getLogger(CanonicalLogger.class);
@@ -18,7 +22,11 @@ public class CanonicalLogger implements Logger {
         if (canonicalLogTrace == null) {
             return "canonical log not found";
         }
-        return canonicalLogTrace.logIntermediateMessage(message);
+
+        Map<String, Object> logs = canonicalLogTrace.aggregateKeyInformation();
+        logs.put("end_time", LocalDateTime.now().toString());
+        logs.put("log_message", message);
+        return JsonMapper.toJson(logs);
     }
 
     @Override
