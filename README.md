@@ -57,10 +57,13 @@ public class DemoService {
       CanonicalLogContext.put("demo_key2", "demo_value2");
 
       logger.info("intermediate log");
+      CanonicalLogContext.trackReadOperation("http");
+      CanonicalLogContext.trackReadOperation("http");
+      CanonicalLogContext.trackWriteOperation("http");
+      CanonicalLogContext.trackWriteOperation("http");
 
       for (int i = 0; i < 10; i++) {
          CanonicalLogContext.stat("read_count", 1);
-         CanonicalLogContext.increase("read_count_v2");
       }
    }
 }
@@ -70,13 +73,62 @@ public class DemoService {
 1. Annotated the method that you want to have Canonical Logging with `@CanonicalLog`
 2. Put key information into log context by invoking `CanonicalLogContext.put(key, value)`
 3. Put stat information into log context by invoking `CanonicalLogContext.stat(key, value)`
-   or `CanonicalLogContext.increase(key)`
+4. Put performance metric into log context by invoking `CanonicalLogContext.trackReadOperation(...)`
+   or `CanonicalLogContext.trackWriteOperation(...)`
 
 As a result, you will see something like this:
 
+```json
+{
+   "test": "test string",
+   "end_time": "2024-09-08T00:14:25.163386",
+   "start_time": "2024-09-08T00:14:25.148717",
+   "method_name": "demo",
+   "demo_key": "demo_value",
+   "test_string": "test string",
+   "elapsed_time": "15 ms",
+   "http": {
+      "totalReadWrite": 4,
+      "readCount": 2,
+      "writeCount": 2
+   },
+   "log_message": "Canonical Log Line Done",
+   "id": "c5eea375-4e0b-4fa8-97b6-8cf1a1904d8f",
+   "class_name": "com.actionlog.log.controller.DemoController",
+   "demo_key2": "demo_value2",
+   "read_count": 10.0
+}
 ```
-{test=test string, end_time=2024-08-28T13:12:09.510456, read_count_v2=10.0, start_time=2024-08-28T13:12:09.509363, method_name=demo, demo_key=demo_value, test_string=test string, elapsed_time=1 ms, log_message=Canonical Log Line Done, id=[b20e142b-87de-41e9-9f4f-c7e2eb12608a, 69798f06-b6a8-4afb-8541-7cc114213ca0], class_name=com.actionlog.log.controller.DemoController, demo_key2=demo_value2, read_count=10.0}
+
+### How to enable performance warning?
+
+Canonical Log supports tracking I/O performance metric with warning when high I/O operation happens in a single call.
+To enable performance warning feature, the following configuration must be defined in the `application.properties` file
+
+```properties
+logging.canonical.performance.warning.enabled=true
+logging.canonical.performance.warning.maxReadCount=10
+logging.canonical.performance.warning.maxWriteCount=10
+logging.canonical.performance.warning.maxTotalReadWrite=20
 ```
+
+By default, the library maintain 5, 5, 10 for read/write/total accordingly
+
+```properties
+logging.canonical.performance.warning.enabled=true
+```
+
+If default value is accepted, you can simply enable the warning without configuring threshold for I/O warning
+
+```text
+total I/O read/write count exceeds configured maxTotalReadWrite, current count=2, max count=1
+read count exceeds configured maxReadCount, current count=2, max count=1
+total I/O read/write count exceeds configured maxTotalReadWrite, current count=3, max count=1
+total I/O read/write count exceeds configured maxTotalReadWrite, current count=4, max count=1
+write count exceeds configured maxReadCount, current count=2, max count=1
+```
+
+If the threshold is met, the warning will be printed out as extra logs
 
 ### Canonical Logger
 This library also provide a Canonical Logger for you to print logs with the key value pairs that exists in the canonical
@@ -95,8 +147,24 @@ This is useful when you need the intermediate values attached in a log
 
 The `logger.info("intermediate log")` will print an intermediate log with canonical log context, the result will be:
 
-```
-{start_time=2024-08-29T01:29:01.543875, test=test string, method_name=demo, demo_key=demo_value, test_string=test string, log_message=intermediate log, id=f1ddcea7-e268-4040-8742-7b39cdd4839e, class_name=com.actionlog.log.controller.DemoController, demo_key2=demo_value2}
+```json
+{
+   "start_time": "2024-09-08T00:14:25.148717",
+   "test": "test string",
+   "method_name": "demo",
+   "demo_key": "demo_value",
+   "test_string": "test string",
+   "end_time": "2024-09-08T00:14:25.149203",
+   "http": {
+      "totalReadWrite": 1,
+      "readCount": 1,
+      "writeCount": 0
+   },
+   "log_message": "intermediate log",
+   "id": "c5eea375-4e0b-4fa8-97b6-8cf1a1904d8f",
+   "class_name": "com.actionlog.log.controller.DemoController",
+   "demo_key2": "demo_value2"
+}
 ```
 
 You will see the `log_message` is `intermediate log`
