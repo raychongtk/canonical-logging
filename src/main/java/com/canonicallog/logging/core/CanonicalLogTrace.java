@@ -43,13 +43,13 @@ public class CanonicalLogTrace {
     }
 
     public void trackReadOperation(String operation) {
-        PerformanceMetric performance = performanceTracking.getOrDefault(operation, new PerformanceMetric(performanceWarningConfig));
+        PerformanceMetric performance = performanceTracking.getOrDefault(operation, new PerformanceMetric(performanceWarningConfig, operation));
         performance.trackRead();
         performanceTracking.put(operation, performance);
     }
 
     public void trackWriteOperation(String operation) {
-        PerformanceMetric performance = performanceTracking.getOrDefault(operation, new PerformanceMetric(performanceWarningConfig));
+        PerformanceMetric performance = performanceTracking.getOrDefault(operation, new PerformanceMetric(performanceWarningConfig, operation));
         performance.trackWrite();
         performanceTracking.put(operation, performance);
     }

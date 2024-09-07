@@ -121,11 +121,11 @@ logging.canonical.performance.warning.enabled=true
 If default value is accepted, you can simply enable the warning without configuring threshold for I/O warning
 
 ```text
-high total I/O, current count=2, max count=1
-high read I/O, current count=2, max count=1
-high total I/O, current count=3, max count=1
-high total I/O, current count=4, max count=1
-high write I/O, current count=2, max count=1
+high total I/O, operation=http, current count=2, max count=1
+high read I/O, operation=http, current count=2, max count=1
+high total I/O, operation=http, current count=3, max count=1
+high total I/O, operation=http, current count=4, max count=1
+high write I/O, operation=http, current count=2, max count=1
 ```
 
 If the threshold is met, the warning will be printed out as extra logs

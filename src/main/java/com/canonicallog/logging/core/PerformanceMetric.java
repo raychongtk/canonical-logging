@@ -11,9 +11,11 @@ public class PerformanceMetric {
     public int totalReadWrite;
     public int readCount;
     public int writeCount;
+    private String operation;
 
-    public PerformanceMetric(@Nullable PerformanceWarningConfig performanceWarningConfig) {
+    public PerformanceMetric(@Nullable PerformanceWarningConfig performanceWarningConfig, String operation) {
         this.performanceWarningConfig = performanceWarningConfig;
+        this.operation = operation;
     }
 
     public void trackRead() {
@@ -22,11 +24,11 @@ public class PerformanceMetric {
 
         if (performanceWarningConfig != null) {
             if (totalReadWrite > performanceWarningConfig.maxTotalReadWrite) {
-                LOGGER.warn("high total I/O, current count={}, max count={}", totalReadWrite, performanceWarningConfig.maxTotalReadWrite);
+                LOGGER.warn("high total I/O, operation={}, current count={}, max count={}", operation, totalReadWrite, performanceWarningConfig.maxTotalReadWrite);
             }
 
             if (readCount > performanceWarningConfig.maxReadCount) {
-                LOGGER.warn("high read I/O, current count={}, max count={}", readCount, performanceWarningConfig.maxReadCount);
+                LOGGER.warn("high read I/O, operation={}, current count={}, max count={}", operation, readCount, performanceWarningConfig.maxReadCount);
             }
         }
     }
@@ -37,11 +39,11 @@ public class PerformanceMetric {
 
         if (performanceWarningConfig != null) {
             if (totalReadWrite > performanceWarningConfig.maxTotalReadWrite) {
-                LOGGER.warn("high total I/O, current count={}, max count={}", totalReadWrite, performanceWarningConfig.maxTotalReadWrite);
+                LOGGER.warn("high total I/O, operation={}, current count={}, max count={}", operation, totalReadWrite, performanceWarningConfig.maxTotalReadWrite);
             }
 
             if (writeCount > performanceWarningConfig.maxWriteCount) {
-                LOGGER.warn("high write I/O, current count={}, max count={}", writeCount, performanceWarningConfig.maxWriteCount);
+                LOGGER.warn("high write I/O, operation={}, current count={}, max count={}", operation, writeCount, performanceWarningConfig.maxWriteCount);
             }
         }
     }
