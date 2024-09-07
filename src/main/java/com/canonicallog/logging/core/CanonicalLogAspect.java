@@ -1,7 +1,6 @@
 package com.canonicallog.logging.core;
 
 import com.canonicallog.logging.annotation.CanonicalLog;
-import com.canonicallog.logging.util.Strings;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,7 +24,7 @@ public class CanonicalLogAspect {
             Object result = joinPoint.proceed();
             long endTime = System.currentTimeMillis();
 
-            logTrace.put("elapsed_time", Strings.format("{} ms", endTime - startTime));
+            logTrace.put("elapsed_time", endTime - startTime);
             return result;
         } finally {
             canonicalLogTracer.finish();
