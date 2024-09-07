@@ -81,20 +81,20 @@ As a result, you will see something like this:
 ```json
 {
    "test": "test string",
-   "end_time": "2024-09-08T00:14:25.163386",
-   "start_time": "2024-09-08T00:14:25.148717",
+   "end_time": "2024-09-08T00:49:03.546199",
+   "start_time": "2024-09-08T00:49:03.531121",
    "method_name": "demo",
    "demo_key": "demo_value",
    "test_string": "test string",
    "elapsed_time": "15 ms",
    "http": {
-      "totalReadWrite": 4,
-      "readCount": 2,
-      "writeCount": 2
+      "total_read_write": 4,
+      "read_count": 2,
+      "write_count": 2
    },
    "log_message": "Canonical Log Line Done",
-   "id": "c5eea375-4e0b-4fa8-97b6-8cf1a1904d8f",
-   "class_name": "com.actionlog.log.controller.DemoController",
+   "id": "33cd6566-791c-411e-9c1e-ffb399c38397",
+   "class_name": "com.canonical.log.controller.DemoController",
    "demo_key2": "demo_value2",
    "read_count": 10.0
 }
@@ -149,20 +149,20 @@ The `logger.info("intermediate log")` will print an intermediate log with canoni
 
 ```json
 {
-   "start_time": "2024-09-08T00:14:25.148717",
+   "start_time": "2024-09-08T00:49:03.531121",
    "test": "test string",
    "method_name": "demo",
    "demo_key": "demo_value",
    "test_string": "test string",
-   "end_time": "2024-09-08T00:14:25.149203",
+   "end_time": "2024-09-08T00:49:03.531603",
    "http": {
-      "totalReadWrite": 1,
-      "readCount": 1,
-      "writeCount": 0
+      "total_read_write": 1,
+      "read_count": 1,
+      "write_count": 0
    },
    "log_message": "intermediate log",
-   "id": "c5eea375-4e0b-4fa8-97b6-8cf1a1904d8f",
-   "class_name": "com.actionlog.log.controller.DemoController",
+   "id": "33cd6566-791c-411e-9c1e-ffb399c38397",
+   "class_name": "com.canonical.log.controller.DemoController",
    "demo_key2": "demo_value2"
 }
 ```
