@@ -1,5 +1,6 @@
 package com.canonicallog.logging.core;
 
+import jakarta.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +11,8 @@ public class PerformanceMetric {
     public int totalReadWrite;
     public int readCount;
     public int writeCount;
-    public PerformanceMetric(PerformanceWarningConfig performanceWarningConfig) {
+
+    public PerformanceMetric(@Nullable PerformanceWarningConfig performanceWarningConfig) {
         this.performanceWarningConfig = performanceWarningConfig;
     }
 
@@ -20,11 +22,11 @@ public class PerformanceMetric {
 
         if (performanceWarningConfig != null) {
             if (totalReadWrite > performanceWarningConfig.maxTotalReadWrite) {
-                LOGGER.warn("total I/O read/write count exceeds configured maxTotalReadWrite, current count={}, max count={}", totalReadWrite, performanceWarningConfig.maxTotalReadWrite);
+                LOGGER.warn("high total I/O, current count={}, max count={}", totalReadWrite, performanceWarningConfig.maxTotalReadWrite);
             }
 
             if (readCount > performanceWarningConfig.maxReadCount) {
-                LOGGER.warn("read count exceeds configured maxReadCount, current count={}, max count={}", readCount, performanceWarningConfig.maxReadCount);
+                LOGGER.warn("high read I/O, current count={}, max count={}", readCount, performanceWarningConfig.maxReadCount);
             }
         }
     }
@@ -35,11 +37,11 @@ public class PerformanceMetric {
 
         if (performanceWarningConfig != null) {
             if (totalReadWrite > performanceWarningConfig.maxTotalReadWrite) {
-                LOGGER.warn("total I/O read/write count exceeds configured maxTotalReadWrite, current count={}, max count={}", totalReadWrite, performanceWarningConfig.maxTotalReadWrite);
+                LOGGER.warn("high total I/O, current count={}, max count={}", totalReadWrite, performanceWarningConfig.maxTotalReadWrite);
             }
 
             if (writeCount > performanceWarningConfig.maxWriteCount) {
-                LOGGER.warn("write count exceeds configured maxReadCount, current count={}, max count={}", writeCount, performanceWarningConfig.maxWriteCount);
+                LOGGER.warn("high write I/O, current count={}, max count={}", writeCount, performanceWarningConfig.maxWriteCount);
             }
         }
     }

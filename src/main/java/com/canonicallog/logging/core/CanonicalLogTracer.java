@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Component
 public class CanonicalLogTracer {
     public static final ThreadLocal<CanonicalLogTrace> CANONICAL_LOG = new ThreadLocal<>();
-    private final Logger logger = LoggerFactory.getLogger(CanonicalLogTracer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CanonicalLogTracer.class);
 
     private final PerformanceWarningConfig performanceWarningConfig;
 
@@ -35,7 +35,7 @@ public class CanonicalLogTracer {
             logTrace.put("end_time", LocalDateTime.now().toString());
             logTrace.put("log_message", "Canonical Log Line Done");
             String logMessage = JsonMapper.toJson(logTrace.formatLog());
-            logger.info(logMessage);
+            LOGGER.info(logMessage);
         } finally {
             CANONICAL_LOG.remove();
         }
