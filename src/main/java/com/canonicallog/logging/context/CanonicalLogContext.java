@@ -28,10 +28,17 @@ public class CanonicalLogContext {
         }
     }
 
-    public static void increase(String key) {
+    public static void trackReadOperation(String operation) {
         CanonicalLogTrace log = CanonicalLogTracer.CANONICAL_LOG.get();
         if (log != null) {
-            log.stat(key, 1);
+            log.trackReadOperation(operation);
+        }
+    }
+
+    public static void trackWriteOperation(String operation) {
+        CanonicalLogTrace log = CanonicalLogTracer.CANONICAL_LOG.get();
+        if (log != null) {
+            log.trackWriteOperation(operation);
         }
     }
 }

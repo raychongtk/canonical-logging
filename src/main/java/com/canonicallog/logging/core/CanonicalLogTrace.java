@@ -1,5 +1,7 @@
 package com.canonicallog.logging.core;
 
+import com.canonicallog.logging.core.json.JsonMapper;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,10 +12,14 @@ import java.util.UUID;
 public class CanonicalLogTrace {
     private final Map<String, List<String>> logContext;
     private final Map<String, Double> stats;
+    private final Map<String, PerformanceMetric> performanceTracking;
+    private final PerformanceWarningConfig performanceWarningConfig;
 
-    public CanonicalLogTrace() {
+    public CanonicalLogTrace(PerformanceWarningConfig performanceWarningConfig) {
         this.logContext = new HashMap<>();
         this.stats = new HashMap<>();
+        this.performanceTracking = new HashMap<>();
+        this.performanceWarningConfig = performanceWarningConfig;
         put("id", UUID.randomUUID().toString());
         put("start_time", LocalDateTime.now().toString());
     }
@@ -36,8 +42,20 @@ public class CanonicalLogTrace {
         stats.compute(key, (k, v) -> v == null ? value : v + value);
     }
 
-    public Map<String, String> formatLog() {
-        Map<String, String> formattedLogs = new HashMap<>();
+    public void trackReadOperation(String operation) {
+        PerformanceMetric performance = performanceTracking.getOrDefault(operation, new PerformanceMetric(performanceWarningConfig));
+        performance.trackRead();
+        performanceTracking.put(operation, performance);
+    }
+
+    public void trackWriteOperation(String operation) {
+        PerformanceMetric performance = performanceTracking.getOrDefault(operation, new PerformanceMetric(performanceWarningConfig));
+        performance.trackWrite();
+        performanceTracking.put(operation, performance);
+    }
+
+    public Map<String, Object> formatLog() {
+        Map<String, Object> formattedLogs = new HashMap<>();
         for (Map.Entry<String, List<String>> entry : logContext.entrySet()) {
             if (entry.getValue().size() > 1) {
                 formattedLogs.put(entry.getKey(), entry.getValue().toString());
@@ -46,16 +64,15 @@ public class CanonicalLogTrace {
             }
         }
 
-        for (Map.Entry<String, Double> entry : stats.entrySet()) {
-            formattedLogs.put(entry.getKey(), entry.getValue().toString());
-        }
+        formattedLogs.putAll(stats);
+        formattedLogs.putAll(performanceTracking);
         return formattedLogs;
     }
 
     protected String logIntermediateMessage(String message) {
-        Map<String, String> logs = formatLog();
+        Map<String, Object> logs = formatLog();
         logs.put("end_time", LocalDateTime.now().toString());
         logs.put("log_message", message);
-        return logs.toString();
+        return JsonMapper.toJson(logs);
     }
 }
