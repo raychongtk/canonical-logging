@@ -1,6 +1,7 @@
 package com.canonicallog.logging.core;
 
 import com.canonicallog.logging.core.json.JsonMapper;
+import com.canonicallog.logging.core.performance.PerformanceWarningConfig;
 import jakarta.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,7 @@ public class CanonicalLogTracer {
         try {
             CanonicalLogTrace logTrace = CANONICAL_LOG.get();
             logTrace.put("end_time", LocalDateTime.now().toString());
-            logTrace.put("log_message", "Canonical Log Line Done");
+            logTrace.put("log_message", "canonical log done");
             String logMessage = JsonMapper.toJson(logTrace.aggregateKeyInformation());
             LOGGER.info(logMessage);
         } finally {

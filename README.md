@@ -92,9 +92,9 @@ As a result, you will see something like this:
       "read_count": 2,
       "write_count": 2
    },
-   "log_message": "Canonical Log Line Done",
+   "log_message": "canonical log done",
    "id": "95be53fa-a4c1-4ead-835f-2f08d0a42c33",
-   "class_name": "com.actionlog.log.controller.DemoController",
+   "class_name": "com.canonical.log.controller.DemoController",
    "demo_key2": "demo_value2",
    "read_count": 10.0
 }

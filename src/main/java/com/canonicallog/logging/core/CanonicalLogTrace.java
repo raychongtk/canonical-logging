@@ -1,5 +1,8 @@
 package com.canonicallog.logging.core;
 
+import com.canonicallog.logging.core.performance.PerformanceMetric;
+import com.canonicallog.logging.core.performance.PerformanceWarningConfig;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;

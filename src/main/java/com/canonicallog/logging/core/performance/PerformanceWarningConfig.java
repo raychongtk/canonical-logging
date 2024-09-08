@@ -1,4 +1,4 @@
-package com.canonicallog.logging.core;
+package com.canonicallog.logging.core.performance;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;

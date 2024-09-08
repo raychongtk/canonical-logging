@@ -1,4 +1,4 @@
-package com.canonicallog.logging.core;
+package com.canonicallog.logging.core.performance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
