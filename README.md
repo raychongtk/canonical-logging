@@ -130,6 +130,17 @@ high write I/O, operation=http, current count=2, max count=1
 
 If the threshold is met, the warning will be printed out as extra logs
 
+### How to mask sensitive fields?
+
+Canonical Log supports masking sensitive fields that belongs to `String` type with a simple configuration
+
+```properties
+logging.canonical.masking.keys=token,name
+```
+
+Once this is configured in the application, any key with `token` and `name`, its value will be masked. Only the head and
+tail characters will be kept.
+
 ### Canonical Logger
 This library also provide a Canonical Logger for you to print logs with the key value pairs that exists in the canonical
 log context.
