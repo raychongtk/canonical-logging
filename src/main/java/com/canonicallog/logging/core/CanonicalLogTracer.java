@@ -1,6 +1,7 @@
 package com.canonicallog.logging.core;
 
 import com.canonicallog.logging.core.json.JsonMapper;
+import com.canonicallog.logging.core.mask.LogMaskingConfig;
 import com.canonicallog.logging.core.performance.PerformanceWarningConfig;
 import jakarta.annotation.Nullable;
 import org.slf4j.Logger;
@@ -15,13 +16,15 @@ public class CanonicalLogTracer {
     private static final Logger LOGGER = LoggerFactory.getLogger(CanonicalLogTracer.class);
 
     private final PerformanceWarningConfig performanceWarningConfig;
+    private final LogMaskingConfig logMaskingConfig;
 
-    public CanonicalLogTracer(@Nullable PerformanceWarningConfig performanceWarningConfig) {
+    public CanonicalLogTracer(@Nullable PerformanceWarningConfig performanceWarningConfig, LogMaskingConfig logMaskingConfig) {
         this.performanceWarningConfig = performanceWarningConfig;
+        this.logMaskingConfig = logMaskingConfig;
     }
 
     public CanonicalLogTrace start() {
-        CanonicalLogTrace logTrace = new CanonicalLogTrace(performanceWarningConfig);
+        CanonicalLogTrace logTrace = new CanonicalLogTrace(performanceWarningConfig, logMaskingConfig);
         CANONICAL_LOG.set(logTrace);
         return logTrace;
     }
