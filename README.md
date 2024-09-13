@@ -1,6 +1,6 @@
-# Canonical Logging Narrative
+# 🚀 Canonical Logging Narrative
 
-## Background
+## ✨ Background
 Canonical Logging is a way to design the logging approach in your system. In traditional logging approach, you will need
 to call `log.info(...)` multiple times in order to print logs in different locations. This increases number of logs and
 makes logs difficult to read and understand.
@@ -8,7 +8,7 @@ With canonical logging, every API request will have a single log with key-value 
 the request lifecycle, meaning that, you can put different data into a log context, the data can be the key information
 that you need for the request like user id, error message, invoke dependency services success or not, and etc.
 
-## Benefit
+## 💖 Benefit
 
 1. Reduce number of logs: you don't need to print multiple logs in multiple locations in many use cases
 2. Better observability: now, you only need to look at the canonical log whenever you need to investigate something
@@ -16,7 +16,7 @@ that you need for the request like user id, error message, invoke dependency ser
 3. Easy to understand: a canonical log contains all key telemetry including error, request information, invocation
    metadata. etc.
 
-## Architecture
+## 👑 Architecture
 
 ![](./docs/canonical-logging.jpg)
 
@@ -27,7 +27,7 @@ information and traditional logs provide more information to complement the cano
 
 How to link the canonical log with traditional logs? Use distributed tracing!
 
-## Demonstration
+## 🧁 Demonstration
 
 ```java
 @RestController
@@ -69,7 +69,7 @@ public class DemoService {
 }
 ```
 
-### How to apply canonical log?
+### 1️⃣ How to apply canonical log?
 1. Annotated the method that you want to have Canonical Logging with `@CanonicalLog`
 2. Put key information into log context by invoking `CanonicalLogContext.put(key, value)`
 3. Put stat information into log context by invoking `CanonicalLogContext.stat(key, value)`
@@ -100,7 +100,7 @@ As a result, you will see something like this:
 }
 ```
 
-### How to enable performance warning?
+### 2️⃣ How to enable performance warning?
 
 Canonical Log supports tracking I/O performance metric with warning when high I/O operation happens in a single call.
 To enable performance warning feature, the following configuration must be defined in the `application.properties` file
@@ -130,7 +130,7 @@ high write I/O, operation=http, current count=2, max count=1
 
 If the threshold is met, the warning will be printed out as extra logs
 
-### How to mask sensitive fields?
+### 3️⃣ How to mask sensitive fields?
 
 Canonical Log supports masking sensitive fields that belongs to `String` type with a simple configuration
 
@@ -141,7 +141,7 @@ logging.canonical.masking.keys=token,name
 Once this is configured in the application, any key with `token` and `name`, its value will be masked. Only the head and
 tail characters will be kept.
 
-### Canonical Logger
+### 4️⃣ Canonical Logger
 This library also provide a Canonical Logger for you to print logs with the key value pairs that exists in the canonical
 log context.
 
@@ -187,7 +187,7 @@ is called
 If you declare a logger with normal logger factory, you will only get the log message without any canonical log
 information attached
 
-### Normal Logger
+### 5️⃣ Normal Logger
 ```java
 private static final Logger logger = LoggerFactory.getLogger("canonical-log");
 ```
