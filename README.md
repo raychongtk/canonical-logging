@@ -27,6 +27,8 @@ information and traditional logs provide more information to complement the cano
 
 How to link the canonical log with traditional logs? Use distributed tracing!
 
+![](./docs/canonical-logging-1.jpg)
+
 ## 🧁 Demonstration
 
 ```java
