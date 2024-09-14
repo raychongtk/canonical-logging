@@ -4,6 +4,7 @@ import com.canonicallog.logging.core.mask.LogMasker;
 import com.canonicallog.logging.core.mask.LogMaskingConfig;
 import com.canonicallog.logging.core.performance.PerformanceMetric;
 import com.canonicallog.logging.core.performance.PerformanceWarningConfig;
+import com.canonicallog.logging.core.util.TypeValidator;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class CanonicalLogTrace {
     public void put(String key, Object... values) {
         for (Object value : values) {
             List<Object> contextValues = logContext.getOrDefault(key, new ArrayList<>());
-            if (logMaskingConfig.containsKey(key) && value instanceof String) {
+            if (logMaskingConfig.containsKey(key) && TypeValidator.isBasicType(value)) {
                 contextValues.add(LogMasker.mask(String.valueOf(value)));
             } else {
                 contextValues.add(value);

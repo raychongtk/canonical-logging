@@ -139,7 +139,8 @@ logging.canonical.masking.keys=token,name
 ```
 
 Once this is configured in the application, any key with `token` and `name`, its value will be masked. Only the head and
-tail characters will be kept.
+tail characters will be kept. This feature supports only basic data types including integer, long, short, double, float,
+and string.
 
 ### 4️⃣ Canonical Logger
 This library also provide a Canonical Logger for you to print logs with the key value pairs that exists in the canonical
