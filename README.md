@@ -20,7 +20,7 @@ that you need for the request like user id, error message, invoke dependency ser
 
 ## 🔥 Problem
 
-1. **Scattered log entries**: We need to invoke `log.info(...)` each time I need a log for a variable in different
+1. **Scattered log entries**: We need to invoke `log.info(...)` each time we need a log for a variable in different
    places. Eventually generating too many log entries in a request. It is difficult to understand logs in a ton of log
    entries. We need one place for key telemetry so that engineers can understand logs faster.
 2. **Unstructured log format**: It causes log searching and aggregating hard. We need a structural log format to make
