@@ -2,11 +2,12 @@
 
 ## ✨ Background
 Canonical Logging is a way to design the logging approach in your system. In traditional logging approach, you will need
-to call `log.info(...)` multiple times in order to print logs in different locations. This increases number of logs and
+to call `LOGGER.info(...)` multiple times in order to print logs in different locations. This increases number of logs
+and
 makes logs difficult to read and understand.
 With canonical logging, every API request will have a single log with key-value pair to indicate the key information of
 the request lifecycle, meaning that, you can put different data into a log context, the data can be the key information
-that you need for the request like user id, error message, invoke dependency services success or not, and etc.
+that you need for the request like user id, error message, invoke dependency services success or not, etc.
 
 ## 🥳 Installation
 
@@ -21,7 +22,7 @@ that you need for the request like user id, error message, invoke dependency ser
 
 ## 🔥 Problem
 
-1. **Scattered log entries**: We need to invoke `log.info(...)` each time we need a log for a variable in different
+1. **Scattered log entries**: We need to invoke `LOGGER.info(...)` each time we need a log for a variable in different
    places. Eventually generating too many log entries in a request. It is difficult to understand logs in a ton of log
    entries. We need one place for key telemetry so that engineers can understand logs faster.
 2. **Unstructured log format**: It causes log searching and aggregating hard. We need a structural log format to make
@@ -71,13 +72,13 @@ public class DemoController {
 ```java
 @Service
 public class DemoService {
-   private static final Logger logger = CanonicalLoggerFactory.getLogger("canonical-log");
+   private static final Logger LOGGER = CanonicalLoggerFactory.getLogger("canonical-log");
 
    public void demo() {
       CanonicalLogContext.put("demo_key", "demo_value");
       CanonicalLogContext.put("demo_key2", "demo_value2");
 
-      logger.info("intermediate log");
+      LOGGER.info("intermediate log");
       CanonicalLogContext.trackReadOperation("http");
       CanonicalLogContext.trackReadOperation("http");
       CanonicalLogContext.trackWriteOperation("http");
@@ -175,14 +176,14 @@ Canonical Logger built on top of Logback as the logging library but reformat the
 with key information attached.
 
 ```java
-private static final Logger logger = CanonicalLoggerFactory.getLogger("canonical-log");
+private static final Logger LOGGER = CanonicalLoggerFactory.getLogger("canonical-log");
 ```
 
 Declare a logger in this way will print log message with existing values inside the canonical log context
 
 This is useful when you need the intermediate values attached in a log
 
-The `logger.info("intermediate log")` will print an intermediate log with canonical log context, the result will be:
+The `LOGGER.info("intermediate log")` will print an intermediate log with canonical log context, the result will be:
 
 ```json
 {
@@ -207,7 +208,7 @@ The `logger.info("intermediate log")` will print an intermediate log with canoni
 You will see the `log_message` is `intermediate log`
 
 That said, the key-value pairs written into the canonical log context will all attach to the log when
-the `logger.info(...)`
+the `LOGGER.info(...)`
 is called
 
 If you declare a logger with normal logger factory, you will only get the log message without any canonical log
@@ -216,10 +217,10 @@ information attached
 ---
 ### 5️⃣ Normal Logger
 ```java
-private static final Logger logger = LoggerFactory.getLogger("canonical-log");
+private static final Logger LOGGER = LoggerFactory.getLogger("canonical-log");
 ```
 
-By using this logger, when you call `logger.info(...)`, it will print
+By using this logger, when you call `LOGGER.info(...)`, it will print
 
 ```
 intermediate log
