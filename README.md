@@ -10,6 +10,7 @@ that you need for the request like user id, error message, invoke dependency ser
 
 ## 🥳 Installation
 
+### Maven
 ```xml
 <dependency>
    <groupId>io.github.raychongtk</groupId>
@@ -227,9 +228,11 @@ intermediate log
 That said, it will not attach any canonical log information.
 
 ---
-Either way is fine. Choose the best one for your use case.
+> Either way is fine. Choose the best one for your use case.
 
-If you are interested in canonical log, you can check out the following articles:
+## 📚 Extra Reading
+
+If you are interested in canonical log, please check out the following articles:
 
 1. https://stripe.com/blog/canonical-log-lines
 2. https://brandur.org/nanoglyphs/025-logs
