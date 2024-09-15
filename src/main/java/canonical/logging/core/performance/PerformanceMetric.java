@@ -1,13 +1,13 @@
 package canonical.logging.core.performance;
 
+import canonical.logging.core.CanonicalLoggerFactory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class PerformanceMetric {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PerformanceMetric.class);
+    private static final Logger LOGGER = CanonicalLoggerFactory.getLogger(PerformanceMetric.class);
 
     private final PerformanceWarningConfig performanceWarningConfig;
 

@@ -144,12 +144,27 @@ logging.canonical.performance.warning.enabled=true
 
 If default value is accepted, you can simply enable the warning without configuring threshold for I/O warning
 
-```text
-high total I/O, operation=http, current count=2, max count=1
-high read I/O, operation=http, current count=2, max count=1
-high total I/O, operation=http, current count=3, max count=1
-high total I/O, operation=http, current count=4, max count=1
-high write I/O, operation=http, current count=2, max count=1
+```json
+{
+   "test": "test string",
+   "end_time": "2024-09-15T21:31:29.107394",
+   "uri": "/api/v1/demo",
+   "start_time": "2024-09-15T21:31:29.092316",
+   "http_method": "GET",
+   "method_name": "demo",
+   "demo_key": "demo_value",
+   "test_string": "test string",
+   "http": {
+      "total_read_write": 2,
+      "read_count": 2,
+      "write_count": 0
+   },
+   "log_message": "high total I/O, operation=http, current count=2, max count=1",
+   "id": "daa86cb9-dda5-447d-8732-edbbe2ef512a",
+   "class_name": "com.canonical.log.controller.DemoController",
+   "query_string": "a=a",
+   "demo_key2": "demo_value2"
+}
 ```
 
 If the threshold is met, the warning will be printed out as extra logs
