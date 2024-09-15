@@ -8,6 +8,17 @@ With canonical logging, every API request will have a single log with key-value 
 the request lifecycle, meaning that, you can put different data into a log context, the data can be the key information
 that you need for the request like user id, error message, invoke dependency services success or not, and etc.
 
+## 🥳 Installation
+
+```xml
+
+<dependency>
+   <groupId>io.github.raychongtk</groupId>
+   <artifactId>canonical-logging</artifactId>
+   <version>0.0.1</version>
+</dependency>
+```
+
 ## 💖 Benefit
 
 1. Reduce number of logs: you don't need to print multiple logs in multiple locations in many use cases
