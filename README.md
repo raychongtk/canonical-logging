@@ -30,11 +30,12 @@ that you need for the request like user id, error message, invoke dependency ser
 
 ## 💖 Benefit
 
-1. **Reduce number of logs**: you don't need to print multiple logs in multiple locations in many use cases
-2. **Better observability**: now, you only need to look at the canonical log whenever you need to investigate something
-   because the log already provide key information for you
-3. **Easy to understand**: a canonical log contains all key telemetry including error, request information, invocation
-   metadata. etc.
+1. **Reduce number of logs**: We don't need to print multiple logs in multiple locations in many use cases
+2. **Better observability**: We can always refer to the canonical log as the first step for any investigation because it
+   is the key telemetry for a request
+3. **Easy to understand**: A canonical log contains all key telemetry including error, request information, invocation
+   metadata, etc.
+4. **Easy to extract**: Structural logs allow us to extract data and search logs easier
 
 ## 👑 Architecture
 
