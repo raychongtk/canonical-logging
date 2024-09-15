@@ -11,7 +11,6 @@ that you need for the request like user id, error message, invoke dependency ser
 ## 🥳 Installation
 
 ```xml
-
 <dependency>
    <groupId>io.github.raychongtk</groupId>
    <artifactId>canonical-logging</artifactId>
