@@ -26,7 +26,7 @@ public class CanonicalLogTrace {
         this.performanceTracking = new HashMap<>();
         this.performanceWarningConfig = performanceWarningConfig;
         this.logMaskingConfig = logMaskingConfig;
-        put("id", UUID.randomUUID().toString());
+        put("id", UUID.randomUUID().toString().replaceAll("-", "").toUpperCase());
         put("start_time", LocalDateTime.now().toString());
     }
 

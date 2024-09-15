@@ -116,7 +116,7 @@ As a result, you will see something like this:
       "write_count": 2
    },
    "log_message": "canonical log done",
-   "id": "95be53fa-a4c1-4ead-835f-2f08d0a42c33",
+   "id": "3A06BF7414DD47448B8983D28EC49FA5",
    "class_name": "com.canonical.log.controller.DemoController",
    "demo_key2": "demo_value2",
    "read_count": 10.0
@@ -160,7 +160,7 @@ If default value is accepted, you can simply enable the warning without configur
       "write_count": 0
    },
    "log_message": "high total I/O, operation=http, current count=2, max count=1",
-   "id": "daa86cb9-dda5-447d-8732-edbbe2ef512a",
+   "id": "3A06BF7414DD47448B8983D28EC49FA5",
    "class_name": "com.canonical.log.controller.DemoController",
    "query_string": "a=a",
    "demo_key2": "demo_value2"
@@ -214,7 +214,7 @@ The `LOGGER.info("intermediate log")` will print an intermediate log with canoni
       "write_count": 0
    },
    "log_message": "intermediate log",
-   "id": "33cd6566-791c-411e-9c1e-ffb399c38397",
+   "id": "3A06BF7414DD47448B8983D28EC49FA5",
    "class_name": "com.canonical.log.controller.DemoController",
    "demo_key2": "demo_value2"
 }
