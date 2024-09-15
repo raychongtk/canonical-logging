@@ -18,12 +18,20 @@ that you need for the request like user id, error message, invoke dependency ser
 </dependency>
 ```
 
+## 🔥 Problem
+
+1. **Scattered log entries**: We need to invoke `log.ino(...)` each time I need a log for a variable in different
+   places. Eventually generating too many log entries in a request. It is difficult to understand logs in a ton of log
+   entries. We need one place for key telemetry so that engineers can understand logs faster.
+2. **Unstructured log format**: It causes log searching and aggregating hard. We need a structural log format to make
+   engineers life easier and create better observability for the app.
+
 ## 💖 Benefit
 
-1. Reduce number of logs: you don't need to print multiple logs in multiple locations in many use cases
-2. Better observability: now, you only need to look at the canonical log whenever you need to investigate something
+1. **Reduce number of logs**: you don't need to print multiple logs in multiple locations in many use cases
+2. **Better observability**: now, you only need to look at the canonical log whenever you need to investigate something
    because the log already provide key information for you
-3. Easy to understand: a canonical log contains all key telemetry including error, request information, invocation
+3. **Easy to understand**: a canonical log contains all key telemetry including error, request information, invocation
    metadata. etc.
 
 ## 👑 Architecture
