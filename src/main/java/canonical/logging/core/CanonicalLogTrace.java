@@ -1,5 +1,6 @@
 package canonical.logging.core;
 
+import canonical.logging.core.json.JsonMapper;
 import canonical.logging.core.mask.LogMasker;
 import canonical.logging.core.mask.LogMaskingConfig;
 import canonical.logging.core.performance.PerformanceMetric;
@@ -33,8 +34,15 @@ public class CanonicalLogTrace {
     public void put(String key, Object... values) {
         for (Object value : values) {
             List<Object> contextValues = logContext.getOrDefault(key, new ArrayList<>());
-            if (logMaskingConfig.containsKey(key) && TypeValidator.isBasicType(value)) {
-                contextValues.add(LogMasker.mask(String.valueOf(value)));
+            if (logMaskingConfig.containsKey(key)) {
+                if (TypeValidator.isBasicType(value)) {
+                    contextValues.add(LogMasker.mask(String.valueOf(value)));
+                } else if (TypeValidator.isJson(value)) {
+                    String json = JsonMapper.toJson(value);
+                    contextValues.add(LogMasker.maskJson(json, key));
+                } else {
+                    contextValues.add(value);
+                }
             } else {
                 contextValues.add(value);
             }

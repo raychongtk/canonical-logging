@@ -16,4 +16,18 @@ class LogMaskerTest {
         assertNull(LogMasker.mask(""));
         assertNull(LogMasker.mask(null));
     }
+
+    @Test
+    void maskJson() {
+        String singleLevelJson = "{\"username\":\"ray_chong\",\"password\":\"12345\",\"email\":\"ray@example.com\"}";
+        String nestedJson = "{\"user\":{\"username\":\"ray_chong\",\"password\":\"12345\",\"email\":\"ray@example.com\"},\"profile\":{\"address\":\"123 Main St\",\"phone\":\"5551234\"}}";
+        String emptyJson = "{}";
+        String userNameJson = "{\"username\":\"ray_chong\"}";
+
+        assertEquals("{\"username\":\"ray_chong\",\"password\":\"1******5\",\"email\":\"ray@example.com\"}", LogMasker.maskJson(singleLevelJson, "password"));
+        assertEquals("{\"user\":{\"username\":\"ray_chong\",\"password\":\"1******5\",\"email\":\"ray@example.com\"},\"profile\":{\"address\":\"123 Main St\",\"phone\":\"5551234\"}}", LogMasker.maskJson(nestedJson, "password"));
+        assertEquals("{}", LogMasker.maskJson(emptyJson, "password"));
+        assertEquals("{\"username\":\"ray_chong\"}", LogMasker.maskJson(userNameJson, ""));
+        assertEquals("{\"username\":\"ray_chong\"}", LogMasker.maskJson(userNameJson, "password"));
+    }
 }

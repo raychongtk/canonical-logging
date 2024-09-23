@@ -1,5 +1,6 @@
 package canonical.logging.core.util;
 
+import canonical.logging.core.CanonicalLogConfig;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -23,5 +24,11 @@ class TypeValidatorTest {
         assertTrue(TypeValidator.isBasicType(floatValue));
         assertTrue(TypeValidator.isBasicType(stringValue));
         assertFalse(TypeValidator.isBasicType(stringBuilder));
+    }
+
+    @Test
+    void isJson() {
+        assertTrue(TypeValidator.isJson(new CanonicalLogConfig()));
+        assertFalse(TypeValidator.isJson("stringValue"));
     }
 }
