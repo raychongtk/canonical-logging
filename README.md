@@ -16,7 +16,7 @@ that you need for the request like user id, error message, invoke dependency ser
 <dependency>
    <groupId>io.github.raychongtk</groupId>
    <artifactId>canonical-logging</artifactId>
-   <version>0.0.1</version>
+   <version>0.0.2</version>
 </dependency>
 ```
 
