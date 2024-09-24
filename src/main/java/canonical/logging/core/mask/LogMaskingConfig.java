@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 @Configuration
 @ConfigurationProperties(prefix = "logging.canonical.masking")
@@ -17,6 +18,7 @@ public class LogMaskingConfig {
 
     public void setKeys(Set<String> keys) {
         this.keys = keys;
+        initJsonMaskingPattern(keys);
     }
 
     public boolean containsKey(String key) {
@@ -25,5 +27,12 @@ public class LogMaskingConfig {
 
     public boolean maskingEnabled() {
         return !keys.isEmpty();
+    }
+
+    private void initJsonMaskingPattern(Set<String> maskingKeys) {
+        for (String key : maskingKeys) {
+            Pattern pattern = Pattern.compile("(?<=\"" + key + "\":\")(.*?)(?=\")");
+            LogMasker.PATTERNS.put(key, pattern);
+        }
     }
 }

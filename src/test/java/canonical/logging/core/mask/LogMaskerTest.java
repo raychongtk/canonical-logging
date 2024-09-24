@@ -2,6 +2,8 @@ package canonical.logging.core.mask;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.regex.Pattern;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -19,6 +21,7 @@ class LogMaskerTest {
 
     @Test
     void maskJson() {
+        LogMasker.PATTERNS.put("password", Pattern.compile("(?<=\"password\":\")(.*?)(?=\")"));
         String singleLevelJson = "{\"username\":\"ray_chong\",\"password\":\"12345\",\"email\":\"ray@example.com\"}";
         String nestedJson = "{\"user\":{\"username\":\"ray_chong\",\"password\":\"12345\",\"email\":\"ray@example.com\"},\"profile\":{\"address\":\"123 Main St\",\"phone\":\"5551234\"}}";
         String emptyJson = "{}";
