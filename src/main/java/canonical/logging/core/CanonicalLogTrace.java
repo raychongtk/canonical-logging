@@ -34,15 +34,13 @@ public class CanonicalLogTrace {
     public void put(String key, Object... values) {
         for (Object value : values) {
             List<Object> contextValues = logContext.getOrDefault(key, new ArrayList<>());
-            if (logMaskingConfig.containsKey(key)) {
-                if (TypeValidator.isBasicType(value)) {
-                    contextValues.add(LogMasker.mask(String.valueOf(value)));
-                } else if (TypeValidator.isJson(value)) {
-                    String json = JsonMapper.toJson(value);
-                    contextValues.add(LogMasker.maskJson(json, key));
-                } else {
-                    contextValues.add(value);
-                }
+            if (logMaskingConfig.containsKey(key) && TypeValidator.isBasicType(value)) {
+                contextValues.add(LogMasker.mask(String.valueOf(value)));
+            } else if (logMaskingConfig.maskingEnabled() && TypeValidator.isJson(value)) {
+                String json = JsonMapper.toJson(value);
+                String maskedJson = LogMasker.maskJson(json, logMaskingConfig.getKeys());
+                Object object = JsonMapper.fromJson(maskedJson, Object.class);
+                contextValues.add(object);
             } else {
                 contextValues.add(value);
             }

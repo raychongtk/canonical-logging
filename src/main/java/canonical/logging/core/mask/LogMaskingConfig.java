@@ -22,4 +22,8 @@ public class LogMaskingConfig {
     public boolean containsKey(String key) {
         return keys.contains(key);
     }
+
+    public boolean maskingEnabled() {
+        return !keys.isEmpty();
+    }
 }

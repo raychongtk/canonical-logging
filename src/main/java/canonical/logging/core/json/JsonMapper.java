@@ -13,4 +13,12 @@ public class JsonMapper {
             throw new RuntimeException("failed to serialize object", e);
         }
     }
+
+    public static <T> T fromJson(String json, Class<T> clazz) {
+        try {
+            return OBJECT_MAPPER.readValue(json, clazz);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("failed to deserialize object", e);
+        }
+    }
 }

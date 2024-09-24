@@ -1,5 +1,6 @@
 package canonical.logging.core.mask;
 
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +13,13 @@ public class LogMasker {
         char first = value.charAt(0);
         char last = value.charAt(value.length() - 1);
         return first + MASK + last;
+    }
+
+    public static String maskJson(String json, Set<String> keys) {
+        for (String key : keys) {
+            json = maskJson(json, key);
+        }
+        return json;
     }
 
     public static String maskJson(String json, String keyToMask) {
