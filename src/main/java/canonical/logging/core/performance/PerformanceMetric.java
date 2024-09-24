@@ -2,10 +2,12 @@ package canonical.logging.core.performance;
 
 import canonical.logging.core.CanonicalLoggerFactory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.annotation.Nullable;
 import org.slf4j.Logger;
 
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class PerformanceMetric {
     private static final Logger LOGGER = CanonicalLoggerFactory.getLogger(PerformanceMetric.class);
 
@@ -13,11 +15,8 @@ public class PerformanceMetric {
 
     @JsonIgnore
     private final String operation;
-    @JsonProperty("total_read_write")
     public int totalReadWrite;
-    @JsonProperty("read_count")
     public int readCount;
-    @JsonProperty("write_count")
     public int writeCount;
 
     public PerformanceMetric(@Nullable PerformanceWarningConfig performanceWarningConfig, String operation) {
