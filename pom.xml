@@ -12,7 +12,7 @@
     <version>0.0.2</version>
     <packaging>jar</packaging>
     <name>canonical-logging</name>
-    <description>canonical-logging</description>
+    <description>A canonical, context-based, structured log library for Java+Spring Boot</description>
 
     <properties>
         <java.version>21</java.version>
